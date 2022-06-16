@@ -21,12 +21,11 @@ This function will create and insert/append the elements needed to display a "pa
 function showPage(list, page) {
    const startIndex = (page * itemsPerPage) - itemsPerPage;
    const endIndex = page * itemsPerPage;
-   const studentListArea = document.querySelector('.student-list');
-   studentListArea.innerHTML = '';
+   const studentList = document.querySelector('.student-list');
+   studentList.innerHTML = '';
    // Creates element with student info through array iteration and dynamically inserts the HMTL
    list.forEach( student => {
       if (list.indexOf(student) >= startIndex && list.indexOf(student) < endIndex) {
-         console.log(student);
          const studentHTML = `
             <li class="student-item cf">
                <div class="student-details">
@@ -38,19 +37,32 @@ function showPage(list, page) {
                   <span class="date">Joined ${student.registered.date}</span>
                </div>
             </li>
-         `
-      studentListArea.insertAdjacentHTML("beforeend", studentHTML)
+         `;
+      studentList.insertAdjacentHTML("beforeend", studentHTML);
       }
    });
 }
-
-showPage(data, 1);
 
 /*
 Create the `addPagination` function
 This function will create and insert/append the elements needed for the pagination buttons
 */
 
-
+function addPagination(list) {
+   const totalPages = Math.ceil(list.length / itemsPerPage);
+   const linkList = document.querySelector('.link-list');
+   linkList.innerHTML = '';
+   for (let i = 1; i <= totalPages; i++) {
+      const pageLinkHTML = `
+         <li>
+            <button type="button">${i}</button>
+         </li>
+      `;
+      linkList.insertAdjacentHTML("beforeend", pageLinkHTML);
+   }
+}
 
 // Call functions
+
+showPage(data, 1);
+addPagination(data);
