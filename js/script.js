@@ -67,6 +67,7 @@ function addPagination(list) {
       if (button.tagName === "BUTTON") {
          linkList.querySelector('.active').className = "";
          e.target.className = "active";
+         showPage(data, e.target.textContent);
       }
    })
 }
