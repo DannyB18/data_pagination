@@ -60,6 +60,14 @@ function addPagination(list) {
       `;
       linkList.insertAdjacentHTML("beforeend", pageLinkHTML);
    }
+   linkList.firstElementChild.firstElementChild.className = "active";
+
+   linkList.addEventListener( "click", (e) => {
+      const button = e.target;
+      if (button.tagName === "BUTTON") {
+         linkList.querySelector('.active').className = "";
+      }
+   })
 }
 
 // Call functions
