@@ -10,8 +10,8 @@ For assistance:
    Check out the "Project Resources" section of the Instructions tab: https://teamtreehouse.com/projects/data-pagination-and-filtering#instructions
    Reach out in your Slack community: https://treehouse-fsjs-102.slack.com/app_redirect?channel=unit-2
 */
-const itemsPerPage = 9;
 
+const itemsPerPage = 9;
 
 /*
 Create the `showPage` function
@@ -62,6 +62,7 @@ function addPagination(list) {
    }
    linkList.firstElementChild.firstElementChild.className = "active";
 
+   // Page link button functionality
    linkList.addEventListener( "click", (e) => {
       const button = e.target;
       if (button.tagName === "BUTTON") {
@@ -69,10 +70,29 @@ function addPagination(list) {
          e.target.className = "active";
          showPage(data, e.target.textContent);
       }
-   })
+   });
 }
+
+/*
+Searchbar function
+this function will create an active searchbar to filter through the students that match search criteria
+*/
+
+function addSearchbar() {
+   const header = document.querySelector('.header');
+   const searchbarHTML = `
+      <label for="search" class="student-search">
+         <span>Search by name</span>
+         <input id="Search by name...">
+         <button type="button"><img src="img/icn-search.svg" alt="Search icon"></button>
+      </label>
+   `;
+   header.insertAdjacentHTML('beforeend', searchbarHTML);
+}
+
 
 // Call functions
 
 showPage(data, 1);
 addPagination(data);
+addSearchbar();
