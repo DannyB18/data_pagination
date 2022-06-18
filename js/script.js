@@ -83,7 +83,7 @@ function addSearchbar() {
    const searchbarHTML = `
       <label for="search" class="student-search">
          <span>Search by name</span>
-         <input id="Search by name...">
+         <input id="search" placeholder="Search by name...">
          <button type="button"><img src="img/icn-search.svg" alt="Search icon"></button>
       </label>
    `;
@@ -91,8 +91,34 @@ function addSearchbar() {
 }
 
 
+
 // Call functions
 
 showPage(data, 1);
 addPagination(data);
 addSearchbar();
+
+
+const searchbar = document.querySelector('#search');
+let filteredResults = [];
+
+function search(list) {
+   // add event listener to searchbar
+   searchbar.addEventListener('keyup', () => {
+      // get searchbar value and save to input
+      let input = searchbar.value.toLowerCase();
+      // empty the array on each keyup to remove non matching objects
+      filteredResults = [];
+      //iterate over all objects
+      list.forEach( student => {
+         // if student's first or last name contains the input,
+         if (student.name.first.toLowerCase().includes(input) || student.name.last.toLowerCase().includes(input)) {
+            // adds it to the filtered array
+            filteredResults.push(student);
+         }
+      })
+      console.log(filteredResults);
+   });
+}
+
+search(data);
