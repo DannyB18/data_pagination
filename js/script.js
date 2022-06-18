@@ -99,25 +99,24 @@ addPagination(data);
 addSearchbar();
 
 
-const searchbar = document.querySelector('#search');
-let filteredResults = [];
+/*
+Search Filter funciton
+filters the array of students to show only the results that match the value in the searchbar
+*/
 
 function search(list) {
-   // add event listener to searchbar
+   const searchbar = document.querySelector('#search');
    searchbar.addEventListener('keyup', () => {
-      // get searchbar value and save to input
       let input = searchbar.value.toLowerCase();
-      // empty the array on each keyup to remove non matching objects
-      filteredResults = [];
-      //iterate over all objects
+      let filteredResults = [];
       list.forEach( student => {
-         // if student's first or last name contains the input,
-         if (student.name.first.toLowerCase().includes(input) || student.name.last.toLowerCase().includes(input)) {
-            // adds it to the filtered array
+         const fullName = [student.name.first, student.name.last].join(' ')
+         if (fullName.toLowerCase().includes(input)) {
             filteredResults.push(student);
          }
       })
-      console.log(filteredResults);
+      showPage(filteredResults, 1);
+      addPagination(filteredResults);
    });
 }
 
