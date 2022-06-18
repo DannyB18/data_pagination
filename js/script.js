@@ -12,6 +12,8 @@ For assistance:
 */
 
 const itemsPerPage = 9;
+const studentList = document.querySelector('.student-list');
+const linkList = document.querySelector('.link-list');
 
 /*
 Create the `showPage` function
@@ -21,7 +23,6 @@ This function will create and insert/append the elements needed to display a "pa
 function showPage(list, page) {
    const startIndex = (page * itemsPerPage) - itemsPerPage;
    const endIndex = page * itemsPerPage;
-   const studentList = document.querySelector('.student-list');
    studentList.innerHTML = '';
    // Creates element with student info through array iteration and dynamically inserts the HMTL
    list.forEach( student => {
@@ -50,7 +51,6 @@ This function will create and insert/append the elements needed for the paginati
 
 function addPagination(list) {
    const totalPages = Math.ceil(list.length / itemsPerPage);
-   const linkList = document.querySelector('.link-list');
    linkList.innerHTML = '';
    for (let i = 1; i <= totalPages; i++) {
       const pageLinkHTML = `
@@ -110,13 +110,18 @@ function search(list) {
       let input = searchbar.value.toLowerCase();
       let filteredResults = [];
       list.forEach( student => {
-         const fullName = [student.name.first, student.name.last].join(' ')
+         const fullName = [student.name.first, student.name.last].join(' ');
          if (fullName.toLowerCase().includes(input)) {
             filteredResults.push(student);
          }
-      })
-      showPage(filteredResults, 1);
-      addPagination(filteredResults);
+      });
+      if (filteredResults.length === 0) {
+         studentList.innerHTML = `<li class="no-results">No Results</li>`;
+         linkList.innerHTML = '';
+      } else {
+         showPage(filteredResults, 1);
+         addPagination(filteredResults);
+      }
    });
 }
 
